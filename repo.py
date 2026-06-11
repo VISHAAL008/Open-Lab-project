@@ -4,14 +4,23 @@ from datetime import datetime, timezone
 import json
 
 # ─── GitHub Auth ───────────────────────────────────────────────────────────────
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+token = os.getenv("GITHUB_TOKEN")
+# ─── GitHub Auth ───────────────────────────────────────────────────────────────
 # Personal Access Token — authenticated requests get 5000 req/hr vs 60 unauth.
-_TOKEN = "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"
-
+headers = {
+    "Authorization": f"Bearer {token}",
+    "Accept": "application/vnd.github+json"
+}
 def _gh():
-    """Return headers dict with Authorization for every GitHub API call."""
-    return {"Authorization": f"token {_TOKEN}",
-            "Accept": "application/vnd.github+json"}
-
+    return {
+        "Authorization": f"token {token}",
+        "Accept": "application/vnd.github+json"
+    }
 
 # ─── URL Parser ────────────────────────────────────────────────────────────────
 
